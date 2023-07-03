@@ -1,38 +1,52 @@
-import React, {useState} from 'react';
-import {SafeAreaView, StyleSheet, TextInput} from 'react-native';
+import React from 'react';
+import {View, StyleSheet, TextInput, Text} from 'react-native';
 import axios from 'axios';
 
 
 const TextInputExample = () => {
   const [number, setNumber] = React.useState('');
+  const [vuelos, setVuelos] = React.useState('');
+  const [loading, setLoading] = React.useState(false)
   const substr = 'flight';
 
-
-  const onChangeNumber= () => {
-    
+  React.useEffect( () => {
     console.log(number.includes(substr));
-    if(number.includes(substr)){
-    axios.get("http://localhost:3000/vuelos") 
+    if(number.toLowerCase().includes(substr.toLowerCase())){
+    axios.get("http://localhost:3000/vuelos")
+    .then(function (response) {
+      setVuelos(response.data)
+    })
+    .finally(() => setLoading(true))
     }
-  }
+  }, [number])
+
 
   return (
-    <SafeAreaView>
+    <View>
       <TextInput
-        style={styles.input}
-        onChangeText={onChangeNumber}
-        value={number}
-        placeholder="Ask for your flight"
-        keyboardType="numeric"
+              style={styles.input}
+              onChangeText={setNumber}
+              value={number}
+              placeholder="Ask for your flight"
+              keyboardType="numeric"
       />
-
+      {!loading ? (
+        <Text>Loading...</Text>
+      ) : (
+        vuelos.map((obj) => {
+          return (
+            <View key={obj.idVuelo}>
+              <Text>{obj.codigoVuelo}</Text>
+              <Text>{obj.aerolinea}</Text>
+            </View>
+          )
+        })
         
-    
-      
-    </SafeAreaView>
-  );
-};
+      )} 
 
+    </View>
+    );
+  }
 const styles = StyleSheet.create({
   input: {
     height: 40,
@@ -43,3 +57,4 @@ const styles = StyleSheet.create({
 });
 
 export default TextInputExample;
+
