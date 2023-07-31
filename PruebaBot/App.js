@@ -22,8 +22,8 @@ const TextInputExample = () => {
 
 
   return (
-    <View style={[styles.container, styles.shadowProp]}>
-      <View style={styles.box}>
+    <View style={[styles.container, ]}>
+      <View style={[styles.box, styles.shadowProp]}>
       <Text style={styles.text2}>Ask for your flight</Text>
       <TextInput
               style={styles.input}
@@ -54,8 +54,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    //backgroundColor: `#4169e1`,
-    backgroundColor: '#fffafa',
+    backgroundColor: '#f0ebeb',
   },
   input: {
     height: 40,
@@ -63,7 +62,7 @@ const styles = StyleSheet.create({
     margin: 12,
     borderWidth: 1,
     padding: 10,
-    backgroundColor: `#fffafa`,
+    opacity: 0.5,
     marginTop: 50,
   },
   text: {
@@ -77,19 +76,23 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   box: {
-    borderColor: 'black',
-    borderWidth:  1,
     padding: 10,
     backgroundColor: 'white',
     height: 400,
+    borderRadius: 13,
       
   
   },
   shadowProp: {
-    shadowColor: '#171717',
-    shadowOffset: {width: -2, height: 4},
-    shadowOpacity: 0.2,
-    shadowRadius: 3,
+    shadowColor: 'black',
+    shadowOffset: {
+      width: 0,
+      height: 0,
+    },
+    shadowOpacity: 0.51,
+    shadowRadius: 13.16,
+    
+    elevation: 20,
   },
 
 
