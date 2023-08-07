@@ -1,9 +1,14 @@
 import React from 'react';
 import {View, StyleSheet, TextInput, Text} from 'react-native';
 import axios from 'axios';
-
+import {
+  useFonts, 
+  Montserrat_300Light } from "@expo-google-fonts/montserrat"
 
 const TextInputExample = () => {
+  let [fontsLoaded] = useFonts({
+    Montserrat_300Light,
+  })
   const [number, setNumber] = React.useState('');
   const [vuelos, setVuelos] = React.useState('');
   const [loading, setLoading] = React.useState(false)
@@ -23,27 +28,31 @@ const TextInputExample = () => {
 
   return (
     <View style={[styles.container, ]}>
-      <View style={[styles.box, styles.shadowProp]}>
-      <Text style={styles.text2}>Ask for your flight</Text>
-      <TextInput
-              style={styles.input}
-              onChangeText={setNumber}
-              value={number}      />
-
-      {!loading ? (
-        <Text style={styles.text}>Loading...</Text>
-      ) : (
-        vuelos.map((obj) => {
-          return (
-            <View key={obj.idVuelo}>
-              <Text>{obj.codigoVuelo}</Text>
-              <Text>{obj.aerolinea}</Text>
-            </View>
-          )
-        })
-        
-      )} 
-      </View>
+      {!fontsLoaded ? null : (
+        <View style={[styles.box, styles.shadowProp]}>
+        <Text style={styles.text2}>Ask for your flight</Text>
+        <TextInput
+                style={styles.input}
+                onChangeText={setNumber}
+                value={number}
+        />
+  
+        {!loading ? (
+          <Text style={styles.text}>Loading...</Text>
+        ) : (
+          vuelos.map((obj) => {
+            return (
+              <View key={obj.idVuelo}>
+                <Text>{obj.codigoVuelo}</Text>
+                <Text>{obj.aerolinea}</Text>
+              </View>
+            )
+          })
+          
+        )} 
+        </View>
+      )}
+      
       
 
     </View>
@@ -64,6 +73,8 @@ const styles = StyleSheet.create({
     padding: 10,
     opacity: 0.5,
     marginTop: 50,
+    borderRadius: 13,
+    alignItems: 'center',
   },
   text: {
     height: 40,
@@ -74,12 +85,13 @@ const styles = StyleSheet.create({
     fontSize: 40,
     fontWeight: 'bold',
     color: 'black',
+    fontFamily: "Montserrat_300Light"
   },
   box: {
     padding: 10,
     backgroundColor: 'white',
     height: 400,
-    borderRadius: 13,
+    borderRadius: 8,
       
   
   },
