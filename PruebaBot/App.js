@@ -11,8 +11,12 @@ const TextInputExample = () => {
   })
   const [number, setNumber] = React.useState('');
   const [vuelos, setVuelos] = React.useState('');
+  const [hoteles, setHoteles] = React.useState('');
+  const [text, setText] = React.useState('');
   const [loading, setLoading] = React.useState(false)
+  const [loading2, setLoading2] = React.useState(false)
   const substr = 'flight';
+  const substr2 = 'hotel';
   
   React.useEffect( () => {
     console.log(number.includes(substr));
@@ -25,39 +29,69 @@ const TextInputExample = () => {
     }
   }, [number])
 
+  React.useEffect( () => {
+    if(text.toLowerCase().includes(substr2.toLowerCase())){
+    axios.get("http://localhost:3000/hotel")
+    .then(function (response) {
+      setHoteles(response.data)
+    })
+    .finally(() => setLoading2(true))
+    }
+  }, [text])
+
 
   return (
     <View style={[styles.container, ]}>
       {!fontsLoaded ? null : (
         <View style={[styles.box, styles.shadowProp]}>
-        <Text style={styles.text2}>Ask for your flight</Text>
-        <TextInput
-                style={styles.input}
-                onChangeText={setNumber}
-                value={number}
-        />
-  
-        {!loading ? (
-          <Text style={styles.text}>Loading...</Text>
-        ) : (
-          vuelos.map((obj) => {
-            return (
-              <View key={obj.idVuelo}>
-                <Text>{obj.codigoVuelo}</Text>
-                <Text>{obj.aerolinea}</Text>
-              </View>
-            )
-          })
-          
-        )} 
+          <Text style={styles.text2}>Ask for your flight</Text>
+          <TextInput
+                  style={styles.input}
+                  onChangeText={setNumber}
+                  value={number}
+          />
+          {!loading ? (
+            <Text style={styles.text}>Loading...</Text>
+          ) : (
+            vuelos.map((obj) => {
+              return (
+                <View key={obj.idVuelo}>
+                  <Text>{obj.codigoVuelo}</Text>
+                  <Text>{obj.aerolinea}</Text>
+                </View>
+              )
+            })
+          )} 
         </View>
       )}
-      
-      
-
+        {!fontsLoaded ? null : (
+          <View style={[styles.box, styles.shadowProp]}>
+            <Text style={styles.text2}>Ask for your hotel</Text>
+            <TextInput
+                    style={styles.input}
+                    onChangeText={setText}
+                    value={text}
+            />
+            {!loading2 ? (
+              <Text style={styles.text}>Loading...</Text>
+            ) : (
+              hotel.map((obj) => {
+                return (
+                  <View key={obj.idHotel}>
+                    <Text>{obj.Nombre}</Text>
+                    <Text>{obj.Ubicacion}</Text>
+                    <Text>{obj.Rating}</Text>
+                    <Text>{obj.Descripcion}</Text>
+                  </View>
+                )
+              })
+            )} 
+          </View>
+        )}
     </View>
     );
   }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -75,8 +109,7 @@ const styles = StyleSheet.create({
     marginTop: 50,
     borderRadius: 13,
     alignItems: 'center',
-  },
-  text: {
+  },  text: {
     height: 40,
     padding: 10,
     color: 'black',
