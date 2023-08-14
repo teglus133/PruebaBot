@@ -31,7 +31,7 @@ const TextInputExample = () => {
 
   React.useEffect( () => {
     if(text.toLowerCase().includes(substr2.toLowerCase())){
-    axios.get("http://localhost:3000/hotel")
+    axios.get("http://localhost:3000/hotels")
     .then(function (response) {
       setHoteles(response.data)
     })
@@ -75,7 +75,7 @@ const TextInputExample = () => {
             {!loading2 ? (
               <Text style={styles.text}>Loading...</Text>
             ) : (
-              hotel.map((obj) => {
+              hoteles.map((obj) => {
                 return (
                   <View key={obj.idHotel}>
                     <Text>{obj.Nombre}</Text>
