@@ -4,5 +4,5 @@
   "expoServerNgrokUrl": "https://sm-buk.anonymous.pruebabot.exp.direct",
   "packagerNgrokUrl": "https://sm-buk.anonymous.pruebabot.exp.direct",
   "ngrokPid": 4892,
-  "webpackServerPort": null
+  "webpackServerPort": 19006
 }

@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#f0ebeb',
+    backgroundColor: '#006FAB',
   },
   input: {
     height: 40,
@@ -121,10 +121,11 @@ const styles = StyleSheet.create({
     fontFamily: "Montserrat_300Light"
   },
   box: {
-    padding: 10,
+    marginBottom: 30,
     backgroundColor: 'white',
     height: 400,
     borderRadius: 8,
+    
       
   
   },
